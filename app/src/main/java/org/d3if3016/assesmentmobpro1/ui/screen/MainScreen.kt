@@ -74,6 +74,8 @@ fun MainScreen() {
 fun ScreenContent(modifier: Modifier) {
     var nama by remember { mutableStateOf("") }
     var nim by remember { mutableStateOf("") }
+    var bpp by remember { mutableStateOf("") }
+    var semester by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
@@ -102,6 +104,30 @@ fun ScreenContent(modifier: Modifier) {
             value = nim,
             onValueChange = { nim = it },
             label = { Text(text = stringResource(id = R.string.nim_mahasiswa)) },
+            trailingIcon = { Text(text = "") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = bpp,
+            onValueChange = { bpp = it },
+            label = { Text(text = stringResource(id = R.string.uang_bpp)) },
+            trailingIcon = { Text(text = "") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = semester,
+            onValueChange = { semester = it },
+            label = { Text(text = stringResource(id = R.string.jumlah_semester)) },
             trailingIcon = { Text(text = "") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(

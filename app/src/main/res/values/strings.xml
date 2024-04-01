@@ -3,4 +3,6 @@
     <string name="bpp_intro">Hitung BPP adalah aplikasi untuk menghitung Biaya Penyelenggaraan Pendidikan selama masa kuliah. Cobalah sekarang !</string>
     <string name="nama_mahasiswa">Nama mahasiswa</string>
     <string name="nim_mahasiswa">NIM mahasiswa</string>
+    <string name="uang_bpp">Uang BPP</string>
+    <string name="jumlah_semester">Jumlah semester</string>
 </resources>
