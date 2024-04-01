@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Assesment Mobpro 1</string>
+    <string name="bpp_intro">Hitung BPP adalah aplikasi untuk menghitung Biaya Penyelenggaraan Pendidikan selama masa kuliah. Cobalah sekarang !</string>
+    <string name="nama_mahasiswa">Nama mahasiswa</string>
+    <string name="nim_mahasiswa">NIM mahasiswa</string>
 </resources>
