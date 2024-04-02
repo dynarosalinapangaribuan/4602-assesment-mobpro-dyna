@@ -35,6 +35,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -94,6 +95,7 @@ fun ScreenContent(modifier: Modifier) {
     var nim by remember { mutableStateOf("") }
     var bpp by remember { mutableStateOf("") }
     var semester by remember { mutableStateOf("") }
+    var hitung by remember { mutableFloatStateOf(0f) }
 
     val radioOptions = listOf(
         stringResource(id = R.string.pria),
@@ -241,7 +243,9 @@ fun ScreenContent(modifier: Modifier) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button(
-                onClick = { },
+                onClick = {
+                          hitung = hitungJumlah(bpp.toFloat(), semester.toFloat())
+                },
                 modifier = Modifier.padding(top = 8.dp),
                 contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
             ) {
@@ -262,7 +266,18 @@ fun ScreenContent(modifier: Modifier) {
                 Text(text = stringResource(id = R.string.reset))
             }
         }
+        if (hitung != 0f) {
+            Text(
+                text = "Hasil Perhitungan: $hitung",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+        }
     }
+}
+
+fun hitungJumlah(bpp: Float, semester: Float): Float {
+    return bpp * semester
 }
 
 @Composable

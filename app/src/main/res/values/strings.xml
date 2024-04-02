@@ -19,5 +19,6 @@
     <string name="pria">Pria</string>
     <string name="wanita">Wanita</string>
     <string name="hitung">Hitung</string>
+    <string name="hitung_x">Hitung: %1$.2f</string>
     <string name="reset">Reset</string>
 </resources>
