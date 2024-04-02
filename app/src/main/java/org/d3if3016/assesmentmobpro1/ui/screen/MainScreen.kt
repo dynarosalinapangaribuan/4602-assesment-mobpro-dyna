@@ -19,7 +19,9 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -47,6 +49,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.d3if3016.assesmentmobpro1.R
@@ -79,8 +82,8 @@ fun MainScreen() {
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    containerColor = Color(0xFFD20062),
+                    titleContentColor = Color(0xFFFFFFFF),
                 )
             )
         }
@@ -92,10 +95,18 @@ fun MainScreen() {
 @Composable
 fun ScreenContent(modifier: Modifier) {
     var nama by remember { mutableStateOf("") }
+    var namaError by remember { mutableStateOf(false) }
+
     var nim by remember { mutableStateOf("") }
+    var nimError by remember { mutableStateOf(false) }
+
     var bpp by remember { mutableStateOf("") }
+    var bppError by remember { mutableStateOf(false) }
+
     var semester by remember { mutableStateOf("") }
-    var hitung by remember { mutableFloatStateOf(0f) }
+    var semesterError by remember { mutableStateOf(false) }
+
+    var hitungHasil by remember { mutableFloatStateOf(0f) }
 
     val radioOptions = listOf(
         stringResource(id = R.string.pria),
@@ -103,7 +114,9 @@ fun ScreenContent(modifier: Modifier) {
     )
     var gender by remember { mutableStateOf(radioOptions[0]) }
 
-    var selectedProdi by remember { mutableStateOf("") }
+    var pilihProdi by remember { mutableStateOf("") }
+    var pilihProdiError by remember { mutableStateOf(false) }
+
     var expanded by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
 
@@ -126,7 +139,9 @@ fun ScreenContent(modifier: Modifier) {
             value = nama,
             onValueChange = { nama = it },
             label = { Text(text = stringResource(id = R.string.nama_mahasiswa)) },
-            trailingIcon = { Text(text = "") },
+            isError = namaError,
+            trailingIcon = { IconPicker(isError = namaError, unit = "") },
+            supportingText = { ErrorHint(isError = namaError)},
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
@@ -138,7 +153,9 @@ fun ScreenContent(modifier: Modifier) {
             value = nim,
             onValueChange = { nim = it },
             label = { Text(text = stringResource(id = R.string.nim_mahasiswa)) },
-            trailingIcon = { Text(text = "") },
+            isError = nimError,
+            trailingIcon = { IconPicker(isError = nimError, unit = "") },
+            supportingText = { ErrorHint(isError = nimError)},
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
@@ -179,7 +196,7 @@ fun ScreenContent(modifier: Modifier) {
                 DropdownMenuItem(
                     option = option,
                     onClick = {
-                        selectedProdi = option
+                        pilihProdi = option
                         expanded = false
                     },
                     enable = expanded
@@ -199,14 +216,27 @@ fun ScreenContent(modifier: Modifier) {
 
             LaunchedEffect(expanded) {
                 if (expanded) {
-                    // Scroll to show the bottom menu items.
                     scrollState.scrollTo(scrollState.maxValue)
                 }
             }
         }
-        if (selectedProdi.isNotBlank()) {
+
+        if (pilihProdiError && pilihProdi.isBlank()) {
             Text(
-                text = "Pilihan prodi : $selectedProdi ",
+                text = stringResource(id = R.string.input_invalid),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(
+                    start = 16.dp,
+                    top = 4.dp)
+                    .fillMaxWidth(),
+                color = Color.Red,
+                textAlign = TextAlign.Start
+            )
+        }
+
+        if (pilihProdi.isNotBlank()) {
+            Text(
+                text = "Pilihan prodi : $pilihProdi ",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 16.dp)
             )
@@ -217,7 +247,10 @@ fun ScreenContent(modifier: Modifier) {
             value = bpp,
             onValueChange = { bpp = it },
             label = { Text(text = stringResource(id = R.string.uang_bpp)) },
-            leadingIcon = { Text(text = "Rp") },
+            isError = bppError,
+            leadingIcon = { Text(text = "Rp")},
+            trailingIcon = { IconPicker(isError = bppError, unit = "") },
+            supportingText = { ErrorHint(isError = bppError)},
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
@@ -229,7 +262,9 @@ fun ScreenContent(modifier: Modifier) {
             value = semester,
             onValueChange = { semester = it },
             label = { Text(text = stringResource(id = R.string.jumlah_semester)) },
-            trailingIcon = { Text(text = "") },
+            isError = semesterError,
+            trailingIcon = { IconPicker(isError = semesterError, unit = "") },
+            supportingText = { ErrorHint(isError = semesterError)},
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
@@ -244,13 +279,21 @@ fun ScreenContent(modifier: Modifier) {
         ) {
             Button(
                 onClick = {
-                          hitung = hitungJumlah(bpp.toFloat(), semester.toFloat())
+                    namaError = (nama == "" || nama == "0")
+                    nimError = (nim == "" || nim == "0")
+                    bppError = (bpp == "" || bpp == "0")
+                    semesterError = (semester == "" || semester == "0")
+                    pilihProdiError = (pilihProdi == "" || pilihProdi == "0")
+                    if (namaError || nimError || bppError || semesterError || pilihProdiError) return@Button
+
+                    hitungHasil = hitungJumlah(bpp.toFloat(), semester.toFloat())
                 },
                 modifier = Modifier.padding(top = 8.dp),
                 contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
             ) {
                 Text(text = stringResource(id = R.string.hitung))
             }
+
             Button(
                 onClick = {
                     nama = ""
@@ -258,7 +301,8 @@ fun ScreenContent(modifier: Modifier) {
                     bpp = ""
                     semester = ""
                     gender = radioOptions[0]
-                    selectedProdi = ""
+                    pilihProdi = ""
+                    hitungHasil = 0f
                 },
                 modifier = Modifier.padding(top = 8.dp),
                 contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
@@ -266,13 +310,35 @@ fun ScreenContent(modifier: Modifier) {
                 Text(text = stringResource(id = R.string.reset))
             }
         }
-        if (hitung != 0f) {
+
+        if (hitungHasil != 0f) {
+            Divider(
+                modifier = Modifier.padding(vertical = 8.dp),
+                thickness = 1.dp
+            )
             Text(
-                text = "Hasil Perhitungan: $hitung",
-                style = MaterialTheme.typography.bodyLarge,
+                text = stringResource(id = R.string.hitung_x, hitungHasil),
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(top = 16.dp)
             )
         }
+    }
+}
+
+@Composable
+fun IconPicker(isError: Boolean, unit: String) {
+    if (isError) {
+        Icon(imageVector = Icons.Filled.Warning, contentDescription =null )
+    }
+    else {
+        Text(text = unit)
+    }
+}
+
+@Composable
+fun ErrorHint(isError: Boolean) {
+    if (isError) {
+        Text(text = stringResource(id = R.string.input_invalid))
     }
 }
 

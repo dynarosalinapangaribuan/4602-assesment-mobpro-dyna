@@ -15,7 +15,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.d3if3016.assesmentmobpro1.ui.screen.MainScreen
@@ -48,7 +47,7 @@ class MainActivity : ComponentActivity() {
                         Text(text = stringResource(id = R.string.app_name))
                     },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(
-                        containerColor = Color(0xD20062),
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
                         titleContentColor = MaterialTheme.colorScheme.primary,
                     )
                 )
