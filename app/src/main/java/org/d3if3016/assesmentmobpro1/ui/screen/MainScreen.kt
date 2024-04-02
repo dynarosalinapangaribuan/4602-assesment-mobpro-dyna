@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
@@ -52,7 +53,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import org.d3if3016.assesmentmobpro1.R
+import org.d3if3016.assesmentmobpro1.navigation.Screen
+import org.d3if3016.assesmentmobpro1.navigation.SetupNavGraph
 import org.d3if3016.assesmentmobpro1.ui.theme.AssesmentMobpro1Theme
 
 class MainActivity : ComponentActivity() {
@@ -65,7 +70,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    SetupNavGraph()
                 }
             }
         }
@@ -74,7 +79,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -84,7 +89,19 @@ fun MainScreen() {
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = Color(0xFFD20062),
                     titleContentColor = Color(0xFFFFFFFF),
-                )
+                ),
+                actions = {
+                    IconButton(
+                        onClick = {
+                            navController.navigate(Screen.About.route)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Outlined.Info,
+                            contentDescription = stringResource(id = R.string.tentang_aplikasi),
+                            tint = Color.White
+                        )
+                    }
+                }
             )
         }
     ) { padding ->
@@ -225,9 +242,11 @@ fun ScreenContent(modifier: Modifier) {
             Text(
                 text = stringResource(id = R.string.input_invalid),
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(
-                    start = 16.dp,
-                    top = 4.dp)
+                modifier = Modifier
+                    .padding(
+                        start = 16.dp,
+                        top = 4.dp
+                    )
                     .fillMaxWidth(),
                 color = Color.Red,
                 textAlign = TextAlign.Start
@@ -389,6 +408,6 @@ fun DropdownMenuItem(
 @Composable
 fun ScreenPreview() {
     AssesmentMobpro1Theme {
-        MainScreen()
+        MainScreen(rememberNavController())
     }
 }
