@@ -40,7 +40,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -111,30 +111,30 @@ fun MainScreen(navController: NavHostController) {
 
 @Composable
 fun ScreenContent(modifier: Modifier) {
-    var nama by remember { mutableStateOf("") }
-    var namaError by remember { mutableStateOf(false) }
+    var nama by rememberSaveable { mutableStateOf("") }
+    var namaError by rememberSaveable { mutableStateOf(false) }
 
-    var nim by remember { mutableStateOf("") }
-    var nimError by remember { mutableStateOf(false) }
+    var nim by rememberSaveable { mutableStateOf("") }
+    var nimError by rememberSaveable { mutableStateOf(false) }
 
-    var bpp by remember { mutableStateOf("") }
-    var bppError by remember { mutableStateOf(false) }
+    var bpp by rememberSaveable { mutableStateOf("") }
+    var bppError by rememberSaveable { mutableStateOf(false) }
 
-    var semester by remember { mutableStateOf("") }
-    var semesterError by remember { mutableStateOf(false) }
+    var semester by rememberSaveable { mutableStateOf("") }
+    var semesterError by rememberSaveable { mutableStateOf(false) }
 
-    var hitungHasil by remember { mutableFloatStateOf(0f) }
+    var hitungHasil by rememberSaveable { mutableFloatStateOf(0f) }
 
     val radioOptions = listOf(
         stringResource(id = R.string.pria),
         stringResource(id = R.string.wanita)
     )
-    var gender by remember { mutableStateOf(radioOptions[0]) }
+    var gender by rememberSaveable { mutableStateOf(radioOptions[0]) }
 
-    var pilihProdi by remember { mutableStateOf("") }
-    var pilihProdiError by remember { mutableStateOf(false) }
+    var pilihProdi by rememberSaveable { mutableStateOf("") }
+    var pilihProdiError by rememberSaveable { mutableStateOf(false) }
 
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
     val scrollState = rememberScrollState()
 
     val dropdownOptions = stringArrayResource(id = R.array.dropdown_options)
