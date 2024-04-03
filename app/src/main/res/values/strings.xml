@@ -20,8 +20,7 @@
     <string name="pria">Pria</string>
     <string name="wanita">Wanita</string>
     <string name="hitung">Hitung</string>
-    <string name="hasil">Pembayaran = </string>
-    <string name="hitung_x">Hitung: %1$.2f</string>
+    <string name="hitung_x">Pembayaran keseluruhan = %1$.2f</string>
     <string name="reset">Reset</string>
     <string name="input_invalid">Tidak boleh kosong.</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
@@ -31,4 +30,6 @@
         Mobpro 1.\n\nCopyright © 2024 Dyna Rosalina
         Pangaribuan\nAll rights reserved.</string>
     <string name="kembali">Kembali</string>
+    <string name="bagikan">Bagikan</string>
+    <string name="bagikan_template">Nama mahasiswa: %1$s \nNIM mahasiswa: %2$s \nJenis kelamin: %3$s \nProdi: %4$s \nUang BPP: %5$s \nJumlah semester: %6$s \n\nPembayaran keseluruhan = Rp %7$s</string>
 </resources>

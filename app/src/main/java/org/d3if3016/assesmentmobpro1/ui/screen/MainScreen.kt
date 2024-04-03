@@ -1,5 +1,7 @@
 package org.d3if3016.assesmentmobpro1.ui.screen
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -45,6 +47,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -129,6 +132,8 @@ fun ScreenContent(modifier: Modifier) {
         stringResource(id = R.string.pria),
         stringResource(id = R.string.wanita)
     )
+    val context = LocalContext.current
+
     var gender by rememberSaveable { mutableStateOf(radioOptions[0]) }
 
     var pilihProdi by rememberSaveable { mutableStateOf("") }
@@ -340,6 +345,28 @@ fun ScreenContent(modifier: Modifier) {
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(top = 16.dp)
             )
+            Button(
+                onClick = {
+                          shareData(
+                              context = context,
+                              message = context.getString(
+                                  R.string.bagikan_template,
+                                  nama,
+                                  nim,
+                                  gender,
+                                  pilihProdi,
+                                  bpp,
+                                  semester,
+                                  hitungHasil.toString()
+                          )
+                          )
+
+                },
+                modifier = Modifier.padding(top = 8.dp),
+                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
+                ) {
+                Text(text = stringResource(id = R.string.bagikan))
+            }
         }
     }
 }
@@ -402,6 +429,16 @@ fun DropdownMenuItem(
             )
         }
     }
+
+private fun shareData(context: Context, message: String) {
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, message)
+    }
+    if (shareIntent.resolveActivity(context.packageManager) != null) {
+        context.startActivity(shareIntent)
+    }
+}
 
 @Preview(showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
