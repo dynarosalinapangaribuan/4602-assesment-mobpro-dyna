@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hitung BPP</string>
+    <string name="bpp_intro">Calculate BPP is an application for calculating Operational Costs         Education during college. Try it now!</string>
+    <string name="nama_mahasiswa">Student name</string>
+    <string name="nim_mahasiswa">"Student NIM "</string>
+    <string name="uang_bpp">"BPP money "</string>
+    <string name="jumlah_semester">"Number of semesters "</string>
+    <string name="pria">Man</string>
+    <string name="wanita">Woman</string>
+    <string name="hitung">Count</string>
+    <string name="hitung_x">Overall payout = %1$.2f</string>
+    <string name="reset">Reset</string>
+    <string name="input_invalid">Can not be empty.</string>
+    <string name="tentang_aplikasi">About Application</string>
+    <string name="copyright">Calculate BPP is an application for calculating Operational Costs         Education during college. So we can know how much BPP we paid         while we are carrying out lectures.  This application was created for the classroom         Mobpro 1.  Copyright © 2024 Dyna Rosalina         Pangaribuan All rights reserved.</string>
+    <string name="kembali">Back</string>
+    <string name="bagikan">Share</string>
+    <string name="bagikan_template">Student name: %1$s Student NIM: %2$s Gender: %3$s Study Program: %4$s BPP Money: %5$s Number of semesters: %6$s  Overall payment = IDR %7$s</string>
+</resources>
