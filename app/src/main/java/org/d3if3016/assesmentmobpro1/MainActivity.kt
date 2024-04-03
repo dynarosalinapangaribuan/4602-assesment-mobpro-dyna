@@ -24,8 +24,6 @@ import org.d3if3016.assesmentmobpro1.ui.theme.AssesmentMobpro1Theme
 
 class MainActivity : ComponentActivity() {
 
-    private val data = getData()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -39,12 +37,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-
-    private fun getData(): List<Dyna> {
-        return listOf(
-            Dyna("Foto Dyna", R.drawable.dyna)
-        )
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -66,6 +58,8 @@ class MainActivity : ComponentActivity() {
             content(Modifier.padding(padding))
         }
     }
+
+
 
     @Composable
     fun Greeting(name: String) {

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Hitung BPP</string>
+    <string name="gambar">Gambar %1$s</string>
     <string name="bpp_intro">Hitung BPP adalah aplikasi untuk menghitung Biaya Penyelenggaraan
         Pendidikan selama masa kuliah. Cobalah sekarang !</string>
     <string name="nama_mahasiswa">Nama mahasiswa</string>
@@ -20,7 +21,7 @@
     <string name="pria">Pria</string>
     <string name="wanita">Wanita</string>
     <string name="hitung">Hitung</string>
-    <string name="hitung_x">Pembayaran keseluruhan = %1$.2f</string>
+    <string name="hitung_x">Pembayaran keseluruhan = Rp %1$.2f</string>
     <string name="reset">Reset</string>
     <string name="input_invalid">Tidak boleh kosong.</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>

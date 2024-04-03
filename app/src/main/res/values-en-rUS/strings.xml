@@ -17,4 +17,5 @@
     <string name="kembali">Back</string>
     <string name="bagikan">Share</string>
     <string name="bagikan_template">Student name: %1$s Student NIM: %2$s Gender: %3$s Study Program: %4$s BPP Money: %5$s Number of semesters: %6$s  Overall payment = IDR %7$s</string>
+    <string name="gambar">Image %1$s</string>
 </resources>
