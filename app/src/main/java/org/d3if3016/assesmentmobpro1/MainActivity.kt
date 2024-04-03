@@ -17,11 +17,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import org.d3if3016.assesmentmobpro1.model.Dyna
 import org.d3if3016.assesmentmobpro1.navigation.SetupNavGraph
 import org.d3if3016.assesmentmobpro1.ui.theme.AssesmentMobpro1Theme
 
 
 class MainActivity : ComponentActivity() {
+
+    private val data = getData()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -35,6 +39,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun getData(): List<Dyna> {
+        return listOf(
+            Dyna("Foto Dyna", R.drawable.dyna)
+        )
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -76,3 +86,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
