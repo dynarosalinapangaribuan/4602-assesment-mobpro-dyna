@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -313,7 +314,8 @@ fun ScreenContent(modifier: Modifier) {
                     hitungHasil = hitungJumlah(bpp.toFloat(), semester.toFloat())
                 },
                 modifier = Modifier.padding(top = 8.dp),
-                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
+                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD20062))
             ) {
                 Text(text = stringResource(id = R.string.hitung))
             }
@@ -329,7 +331,8 @@ fun ScreenContent(modifier: Modifier) {
                     hitungHasil = 0f
                 },
                 modifier = Modifier.padding(top = 8.dp),
-                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
+                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD20062))
             ) {
                 Text(text = stringResource(id = R.string.reset))
             }
@@ -363,7 +366,8 @@ fun ScreenContent(modifier: Modifier) {
 
                 },
                 modifier = Modifier.padding(top = 8.dp),
-                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
+                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD20062))
                 ) {
                 Text(text = stringResource(id = R.string.bagikan))
             }
