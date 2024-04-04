@@ -1,3 +1,5 @@
-# Dyna Rosalina Pangaribuan
-# 6706223016
-# 4602
+Nama : Dyna Rosalina Pangaribuan
+
+NIM : 6706223016
+
+Kelas : 4602
