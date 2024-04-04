@@ -1,1 +1,3 @@
-# 4602-assesment1-mobpro-dyna
+# Dyna Rosalina Pangaribuan
+# 6706223016
+# 4602
