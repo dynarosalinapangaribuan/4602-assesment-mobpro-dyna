@@ -47,7 +47,7 @@ fun MainScreen() {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.app_name))
+                    Text(text = stringResource(R.string.nama_aplikasi))
                 },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -63,7 +63,9 @@ fun MainScreen() {
 @Composable
 fun ScreenContent(modifier: Modifier) {
     Column(
-        modifier = modifier.fillMaxSize().padding(16.dp)
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
     ) {
 
     }
