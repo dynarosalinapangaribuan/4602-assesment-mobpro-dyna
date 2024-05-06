@@ -3,4 +3,6 @@
     <string name="nama_aplikasi">Mari PO</string>
     <string name="list_kosong">Belum ada data</string>
     <string name="x_diklik">%1$s diklik!</string>
+    <string name="tambah_pesanan">Tambah Pesanan</string>
+    <string name="tambah_error">Belum bisa tambah pesanan !!!</string>
 </resources>
