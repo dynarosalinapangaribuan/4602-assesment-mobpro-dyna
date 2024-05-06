@@ -2,14 +2,19 @@ package org.d3if3016.assesmentmobpro1.ui.screen
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
@@ -23,6 +28,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -73,7 +80,8 @@ fun MainScreen() {
 @Composable
 fun ScreenContent(modifier: Modifier) {
     val viewModel: MainViewModel = viewModel()
-    val data = emptyList<SeragamOlahraga>()
+    val data = viewModel.data
+    val context = LocalContext.current
 
     if (data.isEmpty()) {
         Column(
@@ -83,6 +91,12 @@ fun ScreenContent(modifier: Modifier) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.list_kosong), 
+                contentDescription = "Empty data image!",
+                modifier = Modifier.size(100.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
             Text(text = stringResource(id = R.string.list_kosong))
         }
     } else {
@@ -91,7 +105,10 @@ fun ScreenContent(modifier: Modifier) {
                 .fillMaxSize()
         ) {
             items(data) {
-                ListSeragamOlahraga(seragamOlahraga = it)
+                ListSeragamOlahraga(seragamOlahraga = it) {
+                    val pesan = context.getString(R.string.x_diklik, it.namaPemesan)
+                    Toast.makeText(context, pesan, Toast.LENGTH_SHORT).show()
+                }
                 Divider()
             }
         }
@@ -99,10 +116,11 @@ fun ScreenContent(modifier: Modifier) {
 }
 
 @Composable
-fun ListSeragamOlahraga(seragamOlahraga: SeragamOlahraga) {
+fun ListSeragamOlahraga(seragamOlahraga: SeragamOlahraga, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onClick() }
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {

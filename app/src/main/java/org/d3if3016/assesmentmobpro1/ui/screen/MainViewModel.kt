@@ -54,7 +54,7 @@ class MainViewModel : ViewModel() {
             "16-06-2023",
             "26-06-2023",
             "01-03-2024",
-            "030-03-2024"
+            "30-03-2024"
         )
 
         val data = mutableListOf<SeragamOlahraga>()
