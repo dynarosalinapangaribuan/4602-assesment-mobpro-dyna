@@ -4,11 +4,18 @@
     <string name="list_kosong">Belum ada data</string>
     <string name="x_diklik">%1$s diklik!</string>
     <string name="tambah_pesanan">Tambah Pesanan</string>
-    <string name="tambah_error">Belum bisa tambah pesanan !!!</string>
     <string name="nama_pemesan">Nama Pemesan</string>
     <string name="nomor_telepon">Nomor Telepon</string>
     <string name="alamat_pemesan">Alamat Pemesan</string>
     <string name="ukuran">Ukuran</string>
     <string name="jumlah_pesanan">Jumlah Pesanan</string>
     <string name="tanggal">Tanggal Pemesanan</string>
+    <string name="kembali">Kembali</string>
+    <string name="simpan">Simpan</string>
+    <string name="s">S</string>
+    <string name="m">M</string>
+    <string name="l">L</string>
+    <string name="xl">XL</string>
+    <string name="xxl">XXL</string>
+    <string name="xxxl">XXXL</string>
 </resources>
