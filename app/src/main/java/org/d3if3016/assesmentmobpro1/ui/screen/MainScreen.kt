@@ -1,14 +1,17 @@
 package org.d3if3016.assesmentmobpro1.ui.screen
 
-import org.d3if3016.assesmentmobpro1.R
-
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -19,8 +22,13 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import org.d3if3016.assesmentmobpro1.R
+import org.d3if3016.assesmentmobpro1.model.SeragamOlahraga
 import org.d3if3016.assesmentmobpro1.ui.theme.AssesmentMobpro1Theme
 
 class MainActivity : ComponentActivity() {
@@ -62,12 +70,43 @@ fun MainScreen() {
 
 @Composable
 fun ScreenContent(modifier: Modifier) {
-    Column(
+    val viewModel: MainViewModel = viewModel()
+    val data = viewModel.data
+
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
     ) {
+        items(data) {
+            ListSeragamOlahraga(seragamOlahraga = it)
+            Divider()
+            }
+        }
+}
 
+@Composable
+fun ListSeragamOlahraga(seragamOlahraga: SeragamOlahraga) {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Text(text = seragamOlahraga.namaPemesan,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            fontWeight = FontWeight.Bold)
+        Text(text = seragamOlahraga.nomorTelepon,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis)
+        Text(text = seragamOlahraga.alamatPemesan,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis)
+        Text(text = seragamOlahraga.ukuran,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis)
+        Text(text = seragamOlahraga.jumlahPesanan,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis)
+        Text(text = seragamOlahraga.tanggal)
     }
 }
 
