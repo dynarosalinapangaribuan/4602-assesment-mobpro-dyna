@@ -41,6 +41,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.d3if3016.assesmentmobpro1.R
@@ -50,12 +51,24 @@ const val KEY_ID_SERAGAM_OLAHRAGA = "idSeragamOlahraga"
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(navController: NavHostController, id: Long? = null) {
+    val viewModel: DetailViewModel = viewModel()
+
     var namaPemesan by remember { mutableStateOf("") }
     var nomorTelepon by remember { mutableStateOf("") }
     var alamatPemesan by remember { mutableStateOf("") }
     var ukuran by remember { mutableStateOf("") }
     var jumlahPesanan by remember { mutableStateOf("") }
     var tanggal by remember { mutableStateOf("") }
+
+    if (id != null) {
+        val data = viewModel.getSeragamOlahraga(id)
+        namaPemesan = data?.namaPemesan ?: ""
+        nomorTelepon = data?.nomorTelepon ?: ""
+        alamatPemesan = data?.alamatPemesan ?: ""
+        ukuran = data?.ukuran ?: ""
+        jumlahPesanan = data?.jumlahPesanan ?: ""
+        tanggal = data?.tanggal ?: ""
+    }
 
     Scaffold(
         topBar = {
