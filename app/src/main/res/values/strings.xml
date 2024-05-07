@@ -15,6 +15,9 @@
     <string name="invalid">Data tidak boleh kosong !!</string>
     <string name="lainnya">Opsi lainnya</string>
     <string name="hapus">Hapus Data Pesanan</string>
+    <string name="pesan_hapus">Hapus data pesanan ini?</string>
+    <string name="tombol_hapus">Hapus</string>
+    <string name="tombol_batal">Batal</string>
     <string name="s">S</string>
     <string name="m">M</string>
     <string name="l">L</string>

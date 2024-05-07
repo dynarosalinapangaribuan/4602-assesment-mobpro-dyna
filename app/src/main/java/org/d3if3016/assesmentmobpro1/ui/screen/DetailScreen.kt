@@ -1,5 +1,6 @@
 package org.d3if3016.assesmentmobpro1.ui.screen
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.border
@@ -56,6 +57,7 @@ import org.d3if3016.assesmentmobpro1.ui.theme.AssesmentMobpro1Theme
 import org.d3if3016.assesmentmobpro1.util.ViewModelFactory
 
 const val KEY_ID_SERAGAM_OLAHRAGA = "idSeragamOlahraga"
+@SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(navController: NavHostController, id: Long? = null) {
@@ -69,6 +71,8 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
     var alamatPemesan by remember { mutableStateOf("") }
     var ukuran by remember { mutableStateOf("") }
     var jumlahPesanan by remember { mutableStateOf("") }
+
+    var showDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(true) {
         if (id == null) return@LaunchedEffect
@@ -122,7 +126,11 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
                         )
                     }
                     if (id != null) {
-                        DeleteAction {
+                        DeleteAction { showDialog = true }
+                        DisplayAlertDialog(
+                            openDialog = showDialog,
+                            onDismissRequest = { showDialog = false }) {
+                            showDialog = false
                             viewModel.delete(id)
                             navController.popBackStack()
                         }
@@ -256,7 +264,7 @@ fun FormSeragamOlahraga(
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Done
             ),
             modifier = Modifier.fillMaxWidth()
         )
