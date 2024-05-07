@@ -20,4 +20,7 @@ interface SeragamOlahragaDao {
 
     @Query("SELECT * FROM seragamOlahraga WHERE id = :id")
     suspend fun getSeragamOlahragaById(id: Long): SeragamOlahraga?
+
+    @Query("DELETE FROM seragamOlahraga WHERE id = :id")
+    suspend fun deleteById(id: Long)
 }

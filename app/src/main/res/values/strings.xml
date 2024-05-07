@@ -13,6 +13,8 @@
     <string name="simpan">Simpan</string>
     <string name="edit_pesanan">Ubah Pesanan</string>
     <string name="invalid">Data tidak boleh kosong !!</string>
+    <string name="lainnya">Opsi lainnya</string>
+    <string name="hapus">Hapus Data Pesanan</string>
     <string name="s">S</string>
     <string name="m">M</string>
     <string name="l">L</string>
