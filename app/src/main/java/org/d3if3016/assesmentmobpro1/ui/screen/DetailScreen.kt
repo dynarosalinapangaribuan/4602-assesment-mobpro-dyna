@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -60,15 +61,16 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
     var jumlahPesanan by remember { mutableStateOf("") }
     var tanggal by remember { mutableStateOf("") }
 
-    if (id != null) {
-        val data = viewModel.getSeragamOlahraga(id)
-        namaPemesan = data?.namaPemesan ?: ""
-        nomorTelepon = data?.nomorTelepon ?: ""
-        alamatPemesan = data?.alamatPemesan ?: ""
-        ukuran = data?.ukuran ?: ""
-        jumlahPesanan = data?.jumlahPesanan ?: ""
-        tanggal = data?.tanggal ?: ""
-    }
+
+//        if (id != null) {
+//            val data = viewModel.getSeragamOlahraga(id)
+//            namaPemesan = data?.namaPemesan ?: ""
+//            nomorTelepon = data?.nomorTelepon ?: ""
+//            alamatPemesan = data?.alamatPemesan ?: ""
+//            ukuran = data?.ukuran ?: ""
+//            jumlahPesanan = data?.jumlahPesanan ?: ""
+//            tanggal = data?.tanggal ?: ""
+//        }
 
     Scaffold(
         topBar = {

@@ -12,6 +12,8 @@ abstract class SeragamOlahragaDb : RoomDatabase() {
     abstract val dao: SeragamOlahragaDao
 
     companion object {
+
+        @Volatile
         private var INSTANCE: SeragamOlahragaDb? = null
 
         fun getInstance(context: Context): SeragamOlahragaDb {
