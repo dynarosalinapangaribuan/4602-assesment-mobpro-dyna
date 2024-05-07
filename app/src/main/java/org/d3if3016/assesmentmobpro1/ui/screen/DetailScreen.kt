@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -66,16 +67,15 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
     var ukuran by remember { mutableStateOf("") }
     var jumlahPesanan by remember { mutableStateOf("") }
 
-
-//        if (id != null) {
-//            val data = viewModel.getSeragamOlahraga(id)
-//            namaPemesan = data?.namaPemesan ?: ""
-//            nomorTelepon = data?.nomorTelepon ?: ""
-//            alamatPemesan = data?.alamatPemesan ?: ""
-//            ukuran = data?.ukuran ?: ""
-//            jumlahPesanan = data?.jumlahPesanan ?: ""
-//            tanggal = data?.tanggal ?: ""
-//        }
+    LaunchedEffect(true) {
+        if (id == null) return@LaunchedEffect
+            val data = viewModel.getSeragamOlahraga(id) ?: return@LaunchedEffect
+            namaPemesan = data.namaPemesan
+            nomorTelepon = data.nomorTelepon
+            alamatPemesan = data.alamatPemesan
+            ukuran = data.ukuran
+            jumlahPesanan = data.jumlahPesanan
+        }
 
     Scaffold(
         topBar = {
@@ -108,6 +108,8 @@ fun DetailScreen(navController: NavHostController, id: Long? = null) {
                         }
                         if (id == null) {
                             viewModel.insert(namaPemesan, nomorTelepon, alamatPemesan, ukuran, jumlahPesanan)
+                        } else {
+                            viewModel.update(id, namaPemesan, nomorTelepon, alamatPemesan, ukuran, jumlahPesanan)
                         }
                         navController.popBackStack() }) {
                         Icon(

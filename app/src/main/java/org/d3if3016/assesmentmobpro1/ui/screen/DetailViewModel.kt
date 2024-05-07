@@ -14,7 +14,13 @@ class DetailViewModel(private val dao: SeragamOlahragaDao) : ViewModel() {
 
     private val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
 
-    fun insert(namaPemesan: String, nomorTelepon: String, alamatPemesan: String, ukuran: String, jumlahPesanan: String) {
+    fun insert(
+        namaPemesan: String,
+        nomorTelepon: String,
+        alamatPemesan: String,
+        ukuran: String,
+        jumlahPesanan: String
+    ) {
         val seragamOlahraga = SeragamOlahraga(
             namaPemesan = namaPemesan,
             nomorTelepon = nomorTelepon,
@@ -28,9 +34,24 @@ class DetailViewModel(private val dao: SeragamOlahragaDao) : ViewModel() {
             dao.insert(seragamOlahraga)
         }
     }
-//    private val mainViewModel = MainViewModel()
-//
-//    fun getSeragamOlahraga(id: Long): SeragamOlahraga? {
-//        return mainViewModel.data.find { it.id == id }
-//    }
+
+    suspend fun getSeragamOlahraga(id: Long): SeragamOlahraga? {
+        return dao.getSeragamOlahragaById(id)
+    }
+
+    fun update(id: Long, namaPemesan: String, nomorTelepon: String, alamatPemesan: String, ukuran: String, jumlahPesanan: String) {
+        val seragamOlahraga = SeragamOlahraga(
+            id = id,
+            namaPemesan = namaPemesan,
+            nomorTelepon = nomorTelepon,
+            alamatPemesan = alamatPemesan,
+            ukuran = ukuran,
+            jumlahPesanan = jumlahPesanan,
+            tanggal = formatter.format(Date())
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            dao.update(seragamOlahraga)
+        }
+    }
 }

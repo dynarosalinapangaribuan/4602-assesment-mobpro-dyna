@@ -12,7 +12,7 @@
     <string name="kembali">Kembali</string>
     <string name="simpan">Simpan</string>
     <string name="edit_pesanan">Ubah Pesanan</string>
-    <string name="invalid">Nama Pemesan, Nomor Telepon, Alamat Pemesan, Ukuran, Jumlah Pesanan, dan Tanggal tidak boleh kosong !!</string>
+    <string name="invalid">Data tidak boleh kosong !!</string>
     <string name="s">S</string>
     <string name="m">M</string>
     <string name="l">L</string>

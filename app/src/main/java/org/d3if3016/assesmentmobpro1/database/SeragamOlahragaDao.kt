@@ -17,4 +17,7 @@ interface SeragamOlahragaDao {
 
     @Query("SELECT * FROM seragamOlahraga ORDER BY tanggal DESC")
     fun getSeragamOlahraga(): Flow<List<SeragamOlahraga>>
+
+    @Query("SELECT * FROM seragamOlahraga WHERE id = :id")
+    suspend fun getSeragamOlahragaById(id: Long): SeragamOlahraga?
 }
