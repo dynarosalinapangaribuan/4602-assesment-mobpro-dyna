@@ -216,7 +216,7 @@ fun FormSeragamOlahraga(
             label = { Text(text = stringResource(id = R.string.tanggal)) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
+                capitalization = KeyboardCapitalization.Words,
                 imeAction = ImeAction.Done
             ),
             modifier = Modifier.fillMaxWidth()
