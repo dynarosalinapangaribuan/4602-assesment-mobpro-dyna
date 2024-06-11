@@ -111,6 +111,7 @@ fun ListItem(tanaman: Tanaman) {
             contentDescription = stringResource(id = R.string.gambar, tanaman.nama),
             contentScale = ContentScale.Crop,
             placeholder = painterResource(id = R.drawable.loading_img),
+            error = painterResource(id = R.drawable.broken_image),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp)
