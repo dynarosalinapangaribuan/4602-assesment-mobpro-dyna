@@ -28,4 +28,8 @@ object TanamanApi {
     val service: TanamanApiService by lazy {
         retrofit.create(TanamanApiService::class.java)
     }
+
+    fun getTanamanUrl(imageId: String): String {
+        return "$BASE_URL$imageId.jpeg"
+    }
 }
