@@ -33,3 +33,5 @@ object TanamanApi {
         return "$BASE_URL$imageId.jpeg"
     }
 }
+
+enum class ApiStatus { LOADING, SUCCESS }
