@@ -38,7 +38,7 @@ fun TanamanDialog(
     onDismissRequest: () -> Unit,
     onConfirmation: (String, String) -> Unit
 ) {
-    var nama by remember { mutableStateOf("") }
+    var namaTumbuhan by remember { mutableStateOf("") }
     var namaLatin by remember { mutableStateOf("") }
 
     Dialog(onDismissRequest = { onDismissRequest() }) {
@@ -58,8 +58,8 @@ fun TanamanDialog(
                         .aspectRatio(1f)
                 )
                 OutlinedTextField(
-                    value = nama,
-                    onValueChange = { nama = it },
+                    value = namaTumbuhan,
+                    onValueChange = { namaTumbuhan = it },
                     label = { Text(text = stringResource(id = R.string.nama)) },
                     maxLines = 1,
                     keyboardOptions = KeyboardOptions(
@@ -92,8 +92,8 @@ fun TanamanDialog(
                         Text(text = stringResource(id = R.string.batal))
                     }
                     OutlinedButton(
-                        onClick = { onConfirmation(nama, namaLatin) },
-                        enabled = nama.isNotEmpty() && namaLatin.isNotEmpty(),
+                        onClick = { onConfirmation(namaTumbuhan, namaLatin) },
+                        enabled = namaTumbuhan.isNotEmpty() && namaLatin.isNotEmpty(),
                         modifier = Modifier.padding(8.dp)
                     ) {
                         Text(text = stringResource(id = R.string.simpan))

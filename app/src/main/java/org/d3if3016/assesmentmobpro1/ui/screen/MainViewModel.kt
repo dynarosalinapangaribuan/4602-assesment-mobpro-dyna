@@ -27,15 +27,11 @@ class MainViewModel : ViewModel() {
     var errorMessage = mutableStateOf<String?>(null)
         private set
 
-    init {
-        retrieveData()
-    }
-
-    fun retrieveData() {
+    fun retrieveData(userId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             status.value = ApiStatus.LOADING
             try {
-                data.value = TanamanApi.service.getTanaman()
+                data.value = TanamanApi.service.getTanaman(userId)
                 status.value = ApiStatus.SUCCESS
             } catch (e: Exception) {
                 Log.d("MainViewModel", "Failure: ${e.message}")
@@ -44,18 +40,18 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun saveData(userId: String, nama: String, namaLatin: String, bitmap: Bitmap) {
+    fun saveData(userId: String, namaTumbuhan: String, namaLatin: String, bitmap: Bitmap) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = TanamanApi.service.postTanaman(
                     userId,
-                    nama.toRequestBody("text/plain".toMediaTypeOrNull()),
+                    namaTumbuhan.toRequestBody("text/plain".toMediaTypeOrNull()),
                     namaLatin.toRequestBody("text/plain".toMediaTypeOrNull()),
                     bitmap.toMultipartBody()
                 )
 
                 if (result.status == "success")
-                    retrieveData()
+                    retrieveData(userId)
                 else
                     throw Exception(result.message)
             } catch (e: Exception) {
@@ -70,9 +66,9 @@ class MainViewModel : ViewModel() {
         compress(Bitmap.CompressFormat.JPEG, 80, stream)
         val byteArray = stream.toByteArray()
         val  requestBody = byteArray.toRequestBody(
-            "image/jpeg".toMediaTypeOrNull(), 0, byteArray.size)
+            "image/jpg".toMediaTypeOrNull(), 0, byteArray.size)
         return MultipartBody.Part.createFormData(
-            "image", "image.jpeg", requestBody)
+            "image", "image.jpg", requestBody)
     }
 
     fun clearMessage() { errorMessage.value = null}
