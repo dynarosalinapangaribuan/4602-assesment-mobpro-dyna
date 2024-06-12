@@ -2,10 +2,7 @@ package org.d3if3016.assesmentmobpro1.ui.screen
 
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +22,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -61,31 +57,18 @@ import kotlinx.coroutines.launch
 import org.d3if3016.assesmentmobpro1.BuildConfig
 import org.d3if3016.assesmentmobpro1.R
 import org.d3if3016.assesmentmobpro1.model.Tanaman
+import org.d3if3016.assesmentmobpro1.model.User
 import org.d3if3016.assesmentmobpro1.network.ApiStatus
 import org.d3if3016.assesmentmobpro1.network.TanamanApi
+import org.d3if3016.assesmentmobpro1.network.UserDataStore
 import org.d3if3016.assesmentmobpro1.ui.theme.AssesmentMobpro1Theme
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AssesmentMobpro1Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen()
-                }
-            }
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
     val context = LocalContext.current
+    val dataStore = UserDataStore(context)
+    val user by dataStore.userFlow.collectAsState(initial = User())
 
     Scaffold(
         topBar = {
@@ -99,8 +82,13 @@ fun MainScreen() {
                 ),
                 actions = {
                     IconButton(onClick = {
-                        CoroutineScope(Dispatchers.IO).launch { signIn(context) }
-                    }) {
+                        if (user.email.isEmpty()) {
+                            CoroutineScope(Dispatchers.IO).launch { signIn(context, dataStore) }
+                        } else {
+                            Log.d("SIGN-IN", "User: $user")
+                        }
+                    }
+                    ) {
                         Icon(
                             painter = painterResource(id = R.drawable.account_circle),
                             contentDescription = stringResource(id = R.string.profil),
@@ -204,7 +192,7 @@ fun ListItem(tanaman: Tanaman) {
     }
 }
 
-private suspend fun signIn(context: Context) {
+private suspend fun signIn(context: Context, dataStore: UserDataStore) {
     val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
         .setFilterByAuthorizedAccounts(false)
         .setServerClientId(BuildConfig.API_KEY)
@@ -217,19 +205,22 @@ private suspend fun signIn(context: Context) {
     try {
         val credentialManager = CredentialManager.create(context)
         val result = credentialManager.getCredential(context, request)
-        handleSignIn(result)
+        handleSignIn(result, dataStore)
     } catch (e: GetCredentialException) {
         Log.e("SIGN-IN", "Error: ${e.errorMessage}")
     }
 }
 
-private suspend fun handleSignIn(result: GetCredentialResponse) {
+private suspend fun handleSignIn(result: GetCredentialResponse, dataStore: UserDataStore ) {
     val credential = result.credential
     if (credential is CustomCredential &&
         credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
         try {
             val googleId = GoogleIdTokenCredential.createFrom(credential.data)
-            Log.d("SIGN_IN", "User email: ${googleId.id}")
+            val name = googleId.displayName ?: ""
+            val email = googleId.id
+            val photoUrl = googleId.profilePictureUri.toString()
+            dataStore.saveData(User(name, email, photoUrl))
         } catch (e: GoogleIdTokenParsingException) {
             Log.e("SIGN-IN", "Error: ${e.message}")
         }
