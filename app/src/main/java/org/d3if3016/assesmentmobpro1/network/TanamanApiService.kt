@@ -13,7 +13,8 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import org.d3if3016.assesmentmobpro1.model.OpStatus
 import org.d3if3016.assesmentmobpro1.model.Tanaman
-
+import retrofit2.http.DELETE
+import retrofit2.http.Query
 
 
 private const val BASE_URL = "https://unspoken.my.id/"
@@ -39,6 +40,12 @@ interface TanamanApiService {
         @Part("namaTumbuhan") namaTumbuhan: RequestBody,
         @Part("namaLatin") namaLatin: RequestBody,
         @Part image: MultipartBody.Part
+    ): OpStatus
+
+    @DELETE("api_dyna.php")
+    suspend fun deleteTanaman(
+        @Header("Authorization") userId: String,
+        @Query("id") id: String
     ): OpStatus
 
 }
